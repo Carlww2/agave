@@ -4,7 +4,6 @@ const Product = require('../models/product')
 const Order = require('../models/order')
 const OrderDetail = require('../models/orderDetail')
 const passport = require('../passport')
-const _ = require('lodash');
 
 router.get('/', passport.authenticate('bearer', { session: false }), async (req, res) => {
     try {
@@ -21,7 +20,6 @@ router.get('/:id', passport.authenticate('bearer', { session: false }), async (r
         if (!order) {
             order = []
         }
-        // Refactor for use of relations!
         const items = await OrderDetail.findAll({
             where: {
                 order_id: order.id,

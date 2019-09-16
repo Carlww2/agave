@@ -81,7 +81,7 @@ describe('Products API', function() {
     // Incrementar manualmente el id por cada prueba ejecutada (por le momento)
     it('Update a product with some fields', function(done) {
         chai.request(app)
-        .put('/products/17')
+        .put('/products/19')
         .set('Authorization', 'Bearer secret-token')
         .send({
             'price': 4.0
@@ -96,7 +96,7 @@ describe('Products API', function() {
     // Incrementar manualmente el id por cada prueba ejecutada (por le momento)
     it('Update a product without fields', function(done) {
         chai.request(app)
-        .put('/products/17')
+        .put('/products/19')
         .set('Authorization', 'Bearer secret-token')
         .end((err, res) => {
             expect(res).to.have.status(400)
@@ -108,7 +108,7 @@ describe('Products API', function() {
     // Incrementar manualmente el id por cada prueba ejecutada (por le momento)
     it('Delete a product', function(done) {
         chai.request(app)
-        .delete('/products/17')
+        .delete('/products/19')
         .set('Authorization', 'Bearer secret-token')
         .end((err, res) => {
             expect(res).to.have.status(204)
@@ -120,7 +120,7 @@ describe('Products API', function() {
     // Incrementar manualmente el id por cada prueba ejecutada (por le momento)
     it('Delete a product already deleted', function(done) {
         chai.request(app)
-        .delete('/products/17')
+        .delete('/products/19')
         .set('Authorization', 'Bearer secret-token')
         .end((err, res) => {
             expect(res).to.have.status(404)
