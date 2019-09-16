@@ -37,6 +37,9 @@ router.post('/', passport.authenticate('bearer', { session: false }), async (req
     let total = 0;
     const items = {};
     try {
+        if (!req.body.items.length) {
+            return res.status(400).send('No items sent!')
+        }
         req.body.items.forEach(i => items[i] = (items[i] || 0) + 1)
         
         const entries = Object.entries(items)
@@ -77,7 +80,7 @@ router.post('/', passport.authenticate('bearer', { session: false }), async (req
         })
         // Preguntar por una mejor solución / alternativa
         setTimeout(() => {
-            res.send({total: order.total})
+            res.status(201).send({total: order.total})
         }, 100);
     } catch (error) {
         res.status(500).send(`Error: ${error}`)

@@ -16,7 +16,7 @@ router.get('/:id', passport.authenticate('bearer', { session: false }), async (r
     try {
         const product = await Product.findByPk(req.params.id)
         if (!product) {
-            product = []
+            return res.status(404).send()
         }
         res.status(200).send(product)
     } catch (error) {
@@ -26,16 +26,19 @@ router.get('/:id', passport.authenticate('bearer', { session: false }), async (r
 
 router.post('/', passport.authenticate('bearer', { session: false }), async (req, res) => {
     try {
-        const product = await Product.create({...req.body});
-        res.status(200).send(product)
+        const product = await Product.create({...req.body})
+        res.status(201).send(product)
     } catch (error) {
         res.status(500).send(`Error: ${error}`)
     }
 })
 
-router.patch('/:id', passport.authenticate('bearer', { session: false }), async (req, res) => {
+router.put('/:id', passport.authenticate('bearer', { session: false }), async (req, res) => {
     try {
-        const product = await Product.findByPk(req.params.id);
+        const product = await Product.findByPk(req.params.id)
+        if (!Object.keys(req.body).length) {
+            return res.status(400).send()
+        }
         await product.update({...req.body})
         res.status(200).send(product)
     } catch (error) {
@@ -49,10 +52,9 @@ router.delete('/:id', passport.authenticate('bearer', { session: false }), async
             where: {
                id: req.params.id
             }
-        });
+        })
         if (!product) {
-            res.status(404).send('Not found');
-            return
+            return res.status(404).send('Not found')
         }
         res.sendStatus(204)
     } catch (error) {

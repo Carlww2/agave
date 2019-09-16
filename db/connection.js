@@ -1,8 +1,13 @@
 const Sequelize = require('sequelize');
+let = database = 'agave'
 
-const db = new Sequelize('test', 'postgres', process.env.DBPASSWORD, {
-  host: 'localhost',
-  dialect: 'postgres'
+if (process.env.NODE_ENV === 'test') {
+    database = 'test'
+}
+
+const db = new Sequelize(database, 'postgres', process.env.DBPASSWORD, {
+    host: 'localhost',
+    dialect: 'postgres'
 });
 
 db.authenticate()
