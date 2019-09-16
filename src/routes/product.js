@@ -36,7 +36,7 @@ router.post('/', passport.authenticate('bearer', { session: false }), async (req
 router.patch('/:id', passport.authenticate('bearer', { session: false }), async (req, res) => {
     try {
         const product = await Product.findByPk(req.params.id);
-        product.update({...req.body})
+        await product.update({...req.body})
         res.status(200).send(product)
     } catch (error) {
         res.status(500).send(`Error: ${error}`)

@@ -9,5 +9,6 @@ app.get('/', (req, res) => {
 })
 
 app.use('/products', require('./routes/product'))
+app.use('/orders', require('./routes/order'))
 
 module.exports = app
